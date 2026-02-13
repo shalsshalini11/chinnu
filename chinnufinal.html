@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For My Chinnu 💕</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin:0;
+    padding:0;
+    font-family:'Segoe UI',sans-serif;
+    text-align:center;
+    background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+    overflow:hidden;
+    color:white;
+}
+
+/* PASSWORD SCREEN */
+#passwordScreen {
+    margin-top:150px;
+}
+
+input {
+    padding:10px;
+    font-size:18px;
+    border-radius:10px;
+    border:none;
+}
+
+.main-btn {
+    padding:12px 25px;
+    font-size:20px;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+}
+
+#mainContent {
+    display:none;
+}
+
+.photo-container img {
+    width:260px;
+    border-radius:20px;
+    margin-top:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.choice-btn {
+    padding:15px 35px;
+    font-size:22px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    position:absolute;
+    transition:0.3s ease;
+}
+
+#yesBtn {
+    background:#ff4d6d;
+    color:white;
+    left:35%;
+    top:75%;
+}
+
+#noBtn {
+    background:white;
+    color:#ff4d6d;
+    left:55%;
+    top:75%;
+}
+
+#reaction {
+    display:none;
+    margin-top:120px;
+}
+
+#reaction img {
+    width:300px;
+    border-radius:20px;
+}
+
+#reactionText {
+    font-size:28px;
+    margin-top:20px;
+}
+
+/* SHAKE */
+@keyframes shake {
+    0% { transform: translate(0px, 0px); }
+    25% { transform: translate(-10px, 5px); }
+    50% { transform: translate(10px, -5px); }
+    75% { transform: translate(-10px, -5px); }
+    100% { transform: translate(0px, 0px); }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+/* CONFETTI */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD PAGE -->
+<div id="passwordScreen">
+    <h1>Enter Secret Code 💖</h1>
+    <p>(Hint: your nickname 😉)</p>
+    <input type="password" id="passwordInput">
+    <br><br>
+    <button class="main-btn" onclick="checkPassword()">Enter</button>
+</div>
+
+<!-- MAIN PAGE -->
+<div id="mainContent">
+    <h1>Chinnu 💕</h1>
+
+   
+
+    <h2 id="valentineQuestion">Will You Be My Valentine? 💖</h2>
+
+    <button id="yesBtn" class="choice-btn">YES 😍</button>
+    <button id="noBtn" class="choice-btn">NO 😢</button>
+
+    <div id="reaction">
+        <img id="reactionImg">
+        <div id="reactionText"></div>
+    </div>
+</div>
+
+<audio id="kissSound" src="mwah.mp3"></audio>
+
+<script>
+
+function checkPassword(){
+    const input = document.getElementById("passwordInput").value;
+    if(input.toLowerCase() === "chinnu"){
+        document.getElementById("passwordScreen").style.display="none";
+        document.getElementById("mainContent").style.display="block";
+    } else {
+        alert("Wrong code 😏 Try again.");
+    }
+}
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const reaction = document.getElementById("reaction");
+const reactionImg = document.getElementById("reactionImg");
+const reactionText = document.getElementById("reactionText");
+const kissSound = document.getElementById("kissSound");
+const question = document.getElementById("valentineQuestion");
+
+/* YES CLICK */
+yesBtn.addEventListener("click", function(){
+    yesBtn.style.display="none";
+    noBtn.style.display="none";
+    question.style.display="none";
+
+    reaction.style.display="block";
+    reactionImg.src="happy.gif";
+    reactionText.innerHTML="MWAH MWAH 😘💖 I LOVE YOUUUU";
+
+    kissSound.play();
+
+    for(let i=0;i<150;i++){
+        const confetti=document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left=Math.random()*window.innerWidth+"px";
+        confetti.style.backgroundColor=["#ff4d6d","#ffffff","#ff85a1","#ffd6e0"][Math.floor(Math.random()*4)];
+        confetti.style.animationDuration=(Math.random()*2+2)+"s";
+        document.body.appendChild(confetti);
+    }
+});
+
+/* NO CLICK */
+noBtn.addEventListener("click", function(){
+    yesBtn.style.display="none";
+    noBtn.style.display="none";
+    question.style.display="none";
+
+    reaction.style.display="block";
+    reactionImg.src="angry.gif";
+    reactionText.innerHTML="ARE YOU SERIOUS?? 😡";
+
+    document.body.classList.add("shake");
+    setTimeout(()=>document.body.classList.remove("shake"),500);
+
+    if(navigator.vibrate){
+        navigator.vibrate(500);
+    }
+});
+
+/* NO BUTTON RUNS */
+noBtn.addEventListener("mouseover", function(){
+    const x=Math.random()*(window.innerWidth-120);
+    const y=Math.random()*(window.innerHeight-120);
+    noBtn.style.left=x+"px";
+    noBtn.style.top=y+"px";
+});
+
+</script>
+
+</body>
+</html>
