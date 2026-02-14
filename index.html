@@ -39,13 +39,7 @@ input {
     display:none;
 }
 
-.photo-container img {
-    width:260px;
-    border-radius:20px;
-    margin-top:15px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-
+/* BUTTONS */
 .choice-btn {
     padding:15px 35px;
     font-size:22px;
@@ -56,18 +50,33 @@ input {
     transition:0.3s ease;
 }
 
+#yesBtn, #noBtn {
+    bottom:80px;
+}
+
 #yesBtn {
     background:#ff4d6d;
     color:white;
-    left:35%;
-    top:75%;
+    left:30%;
+    transform:translateX(-50%);
 }
 
 #noBtn {
     background:white;
     color:#ff4d6d;
-    left:55%;
-    top:75%;
+    left:70%;
+    transform:translateX(-50%);
+}
+
+/* Mobile Optimization */
+@media (max-width:600px) {
+    #yesBtn {
+        left:35%;
+    }
+
+    #noBtn {
+        left:65%;
+    }
 }
 
 #reaction {
@@ -129,9 +138,6 @@ input {
 <!-- MAIN PAGE -->
 <div id="mainContent">
     <h1>Chinnu 💕</h1>
-
-   
-
     <h2 id="valentineQuestion">Will You Be My Valentine? 💖</h2>
 
     <button id="yesBtn" class="choice-btn">YES 😍</button>
@@ -205,18 +211,17 @@ noBtn.addEventListener("click", function(){
     }
 });
 
-/* NO BUTTON RUNS */
-noBtn.addEventListener("mouseover", function(){
-    const x=Math.random()*(window.innerWidth-120);
-    const y=Math.random()*(window.innerHeight-120);
-    noBtn.style.left=x+"px";
-    noBtn.style.top=y+"px";
-});
+/* NO BUTTON RUNS ONLY ON LAPTOP */
+if (window.innerWidth > 768) {
+    noBtn.addEventListener("mouseover", function(){
+        const x=Math.random()*(window.innerWidth-120);
+        const y=Math.random()*(window.innerHeight-120);
+        noBtn.style.left=x+"px";
+        noBtn.style.top=y+"px";
+    });
+}
 
 </script>
 
 </body>
 </html>
-
-
-
